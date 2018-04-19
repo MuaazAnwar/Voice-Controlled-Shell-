@@ -4,6 +4,7 @@ from interface import Ui_Dialog
 print("starting app")
 import sys
 
+
 app = QtWidgets.QApplication(sys.argv)
 Dialog = QtWidgets.QDialog()
 ui = Ui_Dialog()
