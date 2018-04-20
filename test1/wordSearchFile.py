@@ -27,42 +27,47 @@ def getInput():
         print("done listening")
 
     # recognize speech using Google Speech Recognition
-    try:
-        # for testing purposes, we're just using the default API key
-        # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-        # instead of `r.recognize_google(audio)`
-        string = r.recognize_google(audio)
-        print("Google Speech Recognition thinks you said: " + string)
-        return (string)
+    while True: #keep trying if expections occur, correctly chalne pr break hoga
+        try:
+            # for testing purposes, we're just using the default API key
+            # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
+            # instead of `r.recognize_google(audio)`
+            string = r.recognize_google(audio)
+            print("Google Speech Recognition thinks you said: " + string)
 
-    except sr.UnknownValueError:
-        print("Google Speech Recognition could not understand audio")
-    except sr.RequestError as e:
-        print("Could not request results from Google Speech Recognition service; {0}".format(e))
+            wordSearch(string)
+            break
+
+        except sr.UnknownValueError:
+            print("Google Speech Recognition could not understand audio")
+            playsound("error.mp3")
+        except sr.RequestError as e:
+            print("Could not request results from Google Speech Recognition service; {0}".format(e))
+            playsound("error.mp3")
 
 def wordSearch(str):
     command = "INVALID"
     print("searching for words...")
     if 'copy' in str or 'Copy' in str:
         print("found copy")
+
         print("Enter source path") #sourcepath.mp3
         playsound("sourcepath.mp3")
         source = getInput()
         source = fixString(source)
 
         print("Enter dest path")  # enterdest.mp3
-
+        playsound("destpath.mp3")
         dest = getInput()
         dest = fixString(dest)
 
         command = "cp " + source + " " + dest
 
-
     elif 'date' in str:
         command = "date"
-        os.system("date")
-    elif 'list' in str:
+        #os.system("date") #commented out when testing on windows
+    elif ('list' in str):
         command = "ls"
 
 
-    print(command)
+    print("entering command: " + command)

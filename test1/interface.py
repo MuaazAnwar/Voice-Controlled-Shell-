@@ -71,42 +71,52 @@ class Ui_Dialog(object):
 
 
 
-def press():
+def press(firstPress=True):
+    if firstPress==True:
+        ui.textBrowser.append("Enter command")
+        app.processEvents()
+        playsound("command.mp3")
+        print("Enter command")
+        #ui.changeText("Enter command")
+        app.processEvents()
+
     # obtain audio from the microphone
-    playsound("command.mp3")
-    ui.changeText("Say Command")
-    app.processEvents()
     r = sr.Recognizer()
-    with sr.Microphone() as source:
-
-        print("Say something!")
-
-        audio = r.listen(source)
-        print("done listening")
-
+    while True: #keep trying if expections occur, correctly chalne pr break hoga
+        with sr.Microphone() as source:
+            print("Listening...")
+            ui.textBrowser.append("Listening...")
+            app.processEvents()
+            audio = r.listen(source)
+            print("Done Listening. Processing...")
+            ui.textBrowser.append("Done Listening. Processing...")
+            app.processEvents()
 
     # recognize speech using Google Speech Recognition
-    try:
-        # for testing purposes, we're just using the default API key
-        # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-        # instead of `r.recognize_google(audio)`
-        string = r.recognize_google(audio)
-        print("Google Speech Recognition thinks you said: " + string)
 
-        # if os.path.isfile("audio.mp3"):
-        #    os.remove("audio.mp3")
+        try:
+            # for testing purposes, we're just using the default API key
+            # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
+            # instead of `r.recognize_google(audio)`
+            string = r.recognize_google(audio)
+            print("Google Speech Recognition thinks you said: " + string)
 
-        # tts = gTTS(text="hello", lang='en')
-        # tts.save("hello.mp3")
-        # playsound("hello.mp3")
+            if firstPress==False:
+                return str
 
-        wordSearch(string)
+            wordSearch(string)
+            break
 
-    except sr.UnknownValueError:
-        print("Google Speech Recognition could not understand audio")
-    except sr.RequestError as e:
-        print("Could not request results from Google Speech Recognition service; {0}".format(e))
-
+        except sr.UnknownValueError:
+            print("Google Speech Recognition could not understand audio")
+            ui.textBrowser.append("An error occured.")
+            app.processEvents()
+            playsound("error.mp3")
+        except sr.RequestError as e:
+            print("Could not request results from Google Speech Recognition service; {0}".format(e))
+            ui.textBrowser.append("An error occured.")
+            app.processEvents()
+            playsound("error.mp3")
 
 print("starting app")
 import sys
@@ -119,4 +129,6 @@ Dialog.show()
 sys.exit(app.exec_())
 print("ending app")
 
+def getUI():
+    return ui
 
