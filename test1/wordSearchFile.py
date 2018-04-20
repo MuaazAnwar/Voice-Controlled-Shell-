@@ -1,5 +1,6 @@
 from playsound import playsound
 import speech_recognition as sr
+import os
 
 def fixString(str):
 #    for i in range(0, len(str)):
@@ -59,6 +60,7 @@ def wordSearch(str):
 
     elif 'date' in str:
         command = "date"
+        os.system("date")
     elif 'list' in str:
         command = "ls"
 
