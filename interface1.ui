@@ -40,7 +40,7 @@ background-color:rgb(255, 255, 127)</string>
     <string/>
    </property>
    <property name="icon">
-    <iconset resource="png.qrc">
+    <iconset>
      <normaloff>:/newPrefix/orignal.png</normaloff>:/newPrefix/orignal.png</iconset>
    </property>
    <property name="iconSize">
@@ -81,7 +81,7 @@ background-color:rgb(255, 255, 127)</string>
     <string notr="true">background-color:rgb(172, 172, 172);
 
 font: 75 10pt &quot;Courier New&quot;;
-color: rgb(250, 250, 250);
+color: rgb(255, 255, 255);
 https://thesmithfam.org/blog/2009/09/10/qt-stylesheets-tutorial/;
 </string>
    </property>

@@ -7,8 +7,8 @@ from playsound import playsound
 from gtts import gTTS
 import os
 from wordSearchFile import wordSearch
-
-
+#from interface import Ui_Dialog
+#from main import getObject
 #testing k liye tha
 def test():
     tts = gTTS(text="hello", lang='en')
@@ -21,6 +21,8 @@ def test():
     print("sound played")
 
 def press():
+
+
 
     # obtain audio from the microphone
     r = sr.Recognizer()

@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\interface.ui'
+# Form implementation generated from reading ui file 'interface1.ui'
 #
 # Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
-import speech_recognition as sr
-from PyQt5 import QtCore, QtGui, QtWidgets
-from wordSearchFile import wordSearch
-from playsound import playsound
 
-#import png_rc
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
@@ -28,7 +24,7 @@ class Ui_Dialog(object):
 "background-color:rgb(255, 255, 127)")
         self.pushButton_2.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("original.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/newPrefix/orignal.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton_2.setIcon(icon)
         self.pushButton_2.setIconSize(QtCore.QSize(150, 200))
         self.pushButton_2.setObjectName("pushButton_2")
@@ -55,68 +51,9 @@ class Ui_Dialog(object):
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
-
-        self.pushButton_2.released.connect(press)
-
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Voice Controlled Shell"))
         self.textBrowser.setPlaceholderText(_translate("Dialog", "Press Mic Button To Record"))
 
-    def changeText(self, str):
-        self.textBrowser.setPlaceholderText(str)
-        print("I am Called")
-
-
-
-
-
-def press():
-    # obtain audio from the microphone
-    playsound("command.mp3")
-    ui.changeText("Say Command")
-    app.processEvents()
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-
-        print("Say something!")
-
-        audio = r.listen(source)
-        print("done listening")
-
-
-    # recognize speech using Google Speech Recognition
-    try:
-        # for testing purposes, we're just using the default API key
-        # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-        # instead of `r.recognize_google(audio)`
-        string = r.recognize_google(audio)
-        print("Google Speech Recognition thinks you said: " + string)
-
-        # if os.path.isfile("audio.mp3"):
-        #    os.remove("audio.mp3")
-
-        # tts = gTTS(text="hello", lang='en')
-        # tts.save("hello.mp3")
-        # playsound("hello.mp3")
-
-        wordSearch(string)
-
-    except sr.UnknownValueError:
-        print("Google Speech Recognition could not understand audio")
-    except sr.RequestError as e:
-        print("Could not request results from Google Speech Recognition service; {0}".format(e))
-
-
-print("starting app")
-import sys
-
-app = QtWidgets.QApplication(sys.argv)
-Dialog = QtWidgets.QDialog()
-ui = Ui_Dialog()
-ui.setupUi(Dialog)
-Dialog.show()
-sys.exit(app.exec_())
-print("ending app")
-
-
+import png_rc
