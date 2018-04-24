@@ -7,8 +7,9 @@
 # WARNING! All changes made in this file will be lost!
 import speech_recognition as sr
 from PyQt5 import QtCore, QtGui, QtWidgets
-from wordSearchFile import wordSearch
+
 from playsound import playsound
+
 
 #import png_rc
 
@@ -69,7 +70,7 @@ class Ui_Dialog(object):
 
 
 
-
+from wordSearchFile import wordSearch
 
 def press(firstPress=True):
     if firstPress==True:
