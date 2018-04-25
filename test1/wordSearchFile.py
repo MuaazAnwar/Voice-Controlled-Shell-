@@ -39,14 +39,15 @@ def show_ext():
 
 def getInput():
     r = sr.Recognizer()
-    with sr.Microphone() as source:
+    while True:  # keep trying if expections occur, correctly chalne pr break hoga
+        with sr.Microphone() as source:
 
-        print("Say something!")
-        audio = r.listen(source)
-        print("done listening")
+            print("Say something!")
+            audio = r.listen(source)
+            print("done listening")
 
-    # recognize speech using Google Speech Recognition
-    while True: #keep trying if expections occur, correctly chalne pr break hoga
+        # recognize speech using Google Speech Recognition
+
         try:
             # for testing purposes, we're just using the default API key
             # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
@@ -54,8 +55,9 @@ def getInput():
             string = r.recognize_google(audio)
             print("Google Speech Recognition thinks you said: " + string)
 
-            wordSearch(string)
-            break
+            return string
+#            wordSearch(string)
+ #           break
 
         except sr.UnknownValueError:
             print("Google Speech Recognition could not understand audio")
@@ -64,13 +66,14 @@ def getInput():
             print("Could not request results from Google Speech Recognition service; {0}".format(e))
             playsound("error.mp3")
 
-from interface import Ui_Dialog
-from interface import getUI
-# import interface as obj
-#
-#
-uz=Ui_Dialog
-uz=getUI()
+# from interface import Ui_Dialog
+# from interface import getUI
+# # import interface as obj
+# #
+# #
+# uz=Ui_Dialog
+#uz=getUI()
+
 def wordSearch(str):
     command = "INVALID"
     print("searching for words...")
