@@ -13,10 +13,11 @@ from time import sleep
 from threading import Thread
 import threading
 import subprocess
+import signal
 
 
 #import png_rc
-
+flag=0
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -69,6 +70,7 @@ class Ui_Dialog(object):
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.pushButton.released.connect(breakPress)
 
 
         self.pushButton_2.released.connect(press)
@@ -80,8 +82,7 @@ class Ui_Dialog(object):
         #muaaz
         self.pushButton.setText(_translate("Dialog", "Break!"))
     def changeText(self, str):
-        self.textBrowser.setPlaceholderText(str)
-        print("I am Called")
+        self.textBrowser.append(str)
 
 def fixString(str):
 #    for i in range(0, len(str)):
@@ -294,20 +295,38 @@ def wordSearch(str):
     ui.textBrowser.append("Recognized command: " + command + ",entering in 2 seconds. press BREAK to terminate?")
     app.processEvents()
     sleep(2)
-    ui.textBrowser.append("Entering...")
-    app.processEvents()
+    if (flag==0):
+
+     ui.textBrowser.append("Entering...")
+     app.processEvents()
 
     #print(sys.platform) #show platform
-    os.system(command)
+    ##temp=os.system(command)
+    ##ui.changeText(temp)
 
+     temp=os.popen(command).read()
+     print("hey this is me  : " +temp)
+     ui.changeText(temp)
     app.processEvents()
+
+
+def breakPress():
+    #os.kill(0, signal.SIGINT)
+
+    global flag
+    flag=1
+    print(flag)
+    print("Break is pressed")
+    ui.changeText("Break is pressed command is stopped!")
+
+
 
 def press():
 
-    if isinstance(threading.current_thread(), threading._MainThread): #check if main thread
-        thread = Thread(target=press)
-        thread.start()
-        return #main thread free hogaya
+    # if isinstance(threading.current_thread(), threading._MainThread): #check if main thread
+    #     thread = Thread(target=press)
+    #     thread.start()
+    #     return #main thread free hogaya
 
     ui.textBrowser.append("Enter command")
     app.processEvents()
@@ -336,7 +355,8 @@ def press():
             # instead of `r.recognize_google(audio)`
             string = r.recognize_google(audio)
             print("Google Speech Recognition thinks you said: " + string)
-
+            global flag
+            flag=0
             wordSearch(string)
             break
 
