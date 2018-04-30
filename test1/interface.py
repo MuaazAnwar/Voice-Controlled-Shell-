@@ -9,6 +9,10 @@ import speech_recognition as sr
 from PyQt5 import QtCore, QtGui, QtWidgets
 import os
 from playsound import playsound
+from time import sleep
+from threading import Thread
+import threading
+import subprocess
 
 
 #import png_rc
@@ -283,12 +287,27 @@ def wordSearch(str):
             command = "chmod +r " + n
         else:
             command = "chmod +xwr " + n
+    elif "command line interface" in str: #windows testing
+        command = "cd"
 
+    print("command: " + command)
+    ui.textBrowser.append("Recognized command: " + command + ",entering in 2 seconds. press BREAK to terminate?")
+    app.processEvents()
+    sleep(2)
+    ui.textBrowser.append("Entering...")
+    app.processEvents()
 
-    print("entering command: " + command)
+    #print(sys.platform) #show platform
     os.system(command)
 
+    app.processEvents()
+
 def press():
+
+    if isinstance(threading.current_thread(), threading._MainThread): #check if main thread
+        thread = Thread(target=press)
+        thread.start()
+        return #main thread free hogaya
 
     ui.textBrowser.append("Enter command")
     app.processEvents()
