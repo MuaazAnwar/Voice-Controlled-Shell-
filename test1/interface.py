@@ -93,7 +93,7 @@ def fixString(str):
     a = a.replace("/ ", "/")
     a = a.replace(" /", "/")
     a = a.replace(" dot " , ".")
-    a = a.replace("desktop", "Desktop")
+    a = a.replace("desktop", "~/Desktop")
     a = a.replace("my documents", "MyDocuments")
     a = a.replace("my document", "MyDocuments")
 
@@ -112,20 +112,32 @@ def show_ext():
 
     ext = [".txt", ".mp3", ".mp4", ".png", ".wav", ".sh", ".docx"]
     print(ext)
-    ui.textBrowser.append(".txt .mp3 .mp4 .png .wav .sh .docx")
-	
-    #for i in range(0,len(ext)):
+#    ui.textBrowser.append(".txt .mp3 .mp4 .png .wav .sh .docx")
+    while True:
+        ui.textBrowser.append("0 .txt")
+        ui.textBrowser.append("1 .mp3")
+        ui.textBrowser.append("2 .mp4")
+        ui.textBrowser.append("3 .png")
+        ui.textBrowser.append("4 .wav")
+        ui.textBrowser.append("5 .sh")
+        ui.textBrowser.append("6 .docx")
+        app.processEvents()
 
-     #   print(i + ": " + ext[i])
-        #ui.textBrowser.append(i + ": " + ext[i] )
+        #for i in range(0,len(ext)):
 
-    playsound("selectect.mp3")
+         #   print(i + ": " + ext[i])
+            #ui.textBrowser.append(i + ": " + ext[i] )
 
-    d=getInput()
+        playsound("selectect.mp3")
 
-    d=int(d)
-
-    return ext[d]
+        d=getInput()
+        try:
+            d=int(d)
+            return ext[d]
+        except:
+            ui.textBrowser.append("An error occured.")
+            app.processEvents()
+            playsound("error.mp3")
 
 def getInput():
     r = sr.Recognizer()
@@ -156,19 +168,23 @@ def getInput():
             print("Could not request results from Google Speech Recognition service; {0}".format(e))
             playsound("error.mp3")
 
-
 def wordSearch(str):
     command = "INVALID"
     print("searching for words...")
     if 'copy file' in str or 'copy' in str:
         print("found copy")
 
-        print("Enter source path")
+        print("Enter source path (with filename but no extension")
+        ui.textBrowser.append("Enter source path (with filename but no extension")
+        app.processEvents()
         playsound("sourcepath.mp3")
         source = getInput()
         source = fixString(source)
+        source = source + show_ext()
 
         print("Enter dest path")  # enterdest.mp3
+        ui.textBrowser.append("Enter destiation path")
+        app.processEvents()
         playsound("destpath.mp3")
         dest = getInput()
         dest = fixString(dest)
@@ -291,28 +307,37 @@ def wordSearch(str):
     elif "command line interface" in str: #windows testing
         command = "cd"
 
-    print("command: " + command)
-    ui.textBrowser.append("Recognized command: " + command + ",entering in 2 seconds. press BREAK to terminate?")
-    app.processEvents()
-    sleep(2)
-    if (flag==0):
+    if command != "INVALID":
 
-     ui.textBrowser.append("Entering...")
-     app.processEvents()
+        print("command: " + command)
+        ui.textBrowser.append("Recogni"
+                              "zed command: " + command + ",entering in 2 seconds. press BREAK to terminate?")
+        app.processEvents()
+        sleep(2)
+        if (flag==0):
+
+         ui.textBrowser.append("Entering...")
+         app.processEvents()
 
     #print(sys.platform) #show platform
     ##temp=os.system(command)
     ##ui.changeText(temp)
 
-     temp=os.popen(command).read()
-     print("hey this is me  : " +temp)
-     ui.changeText(temp)
-    app.processEvents()
-
+         temp=os.popen(command).read()
+         print("hey this is me  : " +temp)
+         ui.changeText(temp)
+         app.processEvents()
+    else:
+        playsound("error.mp3")
+        ui.textBrowser.append("An error occured.")
+        app.processEvents()
+        press()
 
 def breakPress():
     #os.kill(0, signal.SIGINT)
-
+    #testing
+    #print(show_ext())
+    #end testing
     global flag
     flag=1
     print(flag)

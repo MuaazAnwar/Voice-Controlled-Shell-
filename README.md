@@ -39,6 +39,21 @@ Voice is recognized through Google API and different mp3 files are played to ask
 3. Run:
 * python3 /test1/interface.py
 
+## Examples
+
+-1. Create test file on desktop: touch file.txt. 
+0. Create test destination on desktop: mkdir folder
+
+1. Click the micorphone button
+
+2. Say: "Copy File"
+
+3. Say: "Desktop slash file
+
+4. Say corresponding number for .txt extension
+
+5. Say: Desktop slash folder
+
 ## Limitations
 
 ### Acceptable Commands
