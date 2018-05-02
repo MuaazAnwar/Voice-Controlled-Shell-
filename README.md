@@ -42,3 +42,6 @@ Voice is recognized through Google API and different mp3 files are played to ask
 
 ### Other
 * Keywords are searched for in spoken text rather than processing natural language.
+* Commands with parameters (ex: cp source destination) are accepted in pieces.
+* Program must be triggered by clicking on the micorphone button (for every command)
+* Number of extensions is limited and can be selected seperately by voice.
