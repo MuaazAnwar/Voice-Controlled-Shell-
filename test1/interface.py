@@ -241,7 +241,7 @@ def wordSearch(str):
     elif "kernel version" in str:
         command = "uname -r"
     elif "exit" in str:
-        command = "quit()"
+        command = "kill -9 0"
     elif "clear" in str:
         command = "clear"
 #    elif "find all text files" in str:
@@ -326,18 +326,18 @@ def wordSearch(str):
 
         print("command: " + command)
         ui.textBrowser.append("Recogni"
-                              "zed command: " + command + ",entering in 2 seconds. press BREAK to terminate?")
+                              "zed command: " + command + ",entering in 5 seconds. press BREAK to terminate?")
         app.processEvents()
-        sleep(2)
-        if (flag==0):
+        sleep(5)
 
-         ui.textBrowser.append("Entering...")
-         app.processEvents()
+
+        ui.textBrowser.append("Entering...")
+        app.processEvents()
 
     #print(sys.platform) #show platform
     ##temp=os.system(command)
     ##ui.changeText(temp)
-
+        if (flag == 0):
          temp=os.popen(command).read()
          print("hey this is me  : " +temp)
          ui.changeText(temp)
