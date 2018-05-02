@@ -15,6 +15,26 @@ Voice is recognized through Google API and different mp3 files are played to ask
 
 # Limitations
 
-* Limited commands
-* 
-*
+## Limited commands
+* Copy
+* Move
+* List
+* Change directory
+* Copy folder
+* Kernel version
+* Exit
+* Clear
+* Create file
+* Create directory
+* Delete file
+* Delete folder
+* Shutdown
+* Restart
+* Current directory
+* Network status
+* Running Processes
+* All processes
+* Disk usage
+* File usage
+* Open browser
+* Change access
