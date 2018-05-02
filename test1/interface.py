@@ -197,12 +197,17 @@ def wordSearch(str):
     elif ('list' in str):
         command = "ls"
     elif "move" in str:
-        print("Enter source path")  # sourcepath.mp3
+        print("Enter source path (with filename but no extension)")  # sourcepath.mp3
+        ui.textBrowser.append("Enter source path (with filename but no extension)")  # sourcepath.mp3
+        app.processEvents()
         playsound("sourcepath.mp3")
         source = getInput()
         source = fixString(source)
+        source = source + show_ext()
 
         print("Enter dest path")  # enterdest.mp3
+        ui.textBrowser.append("Enter destination path")  # sourcepath.mp3
+        app.processEvents()
         playsound("destpath.mp3")
         dest = getInput()
         dest = fixString(dest)
@@ -214,18 +219,21 @@ def wordSearch(str):
         else:
             ui.textBrowser.append("Enter directory")
             playsound("entrdir.mp3")
-
             dir = getInput()
             dir=fixString()
             command = "cd " + dir
     elif "copy folder" in str:
         playsound("sourcepath.mp3")
+        ui.textBrowser.append("Enter source path with name")
+        app.processEvents()
         s = getInput()
         s = fixString(s)
+        s = fixName(s)
 
         playsound("destpath")
         d = getInput()
         d= fixString(d)
+        d = fixName(d)
         command = "cp -r " + s + " " + d
     elif "kernel version" in str:
         command = "uname -r"
@@ -258,7 +266,7 @@ def wordSearch(str):
         ui.textBrowser.append("Select extension")
         t = show_ext()
 
-        c = n + "." + t
+        c = n + + t
         command = "rm " + c
     elif "delete folder" in str:
         ui.textBrowser.append("Enter name")
@@ -286,15 +294,19 @@ def wordSearch(str):
         command = "firefox&"
     elif "change access" in str:
         playsound("name.mp3")
+        ui.textBrowser.append("Enter name")
+        app.processEvents()
         n = getInput()
         n = fixName(n)
 
         ui.textBrowser.append("Select extension")
+        app.processEvents()
         t = show_ext()
         t = fixString(t)
-        n = n + "." + t
+        n = n + t
         playsound("perm.mp3")
-
+        ui.textBrowser.append("Select permission: read, write, or execute (say all for all)")
+        app.processEvents()
         str = getInput()
         if "execute" in str:
             command = "chmod +x " + n
