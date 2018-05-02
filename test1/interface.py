@@ -121,6 +121,7 @@ def show_ext():
         ui.textBrowser.append("4 .wav")
         ui.textBrowser.append("5 .sh")
         ui.textBrowser.append("6 .docx")
+        ui.textBrowser.append("7 No extension")
         app.processEvents()
 
         #for i in range(0,len(ext)):
@@ -133,6 +134,8 @@ def show_ext():
         d=getInput()
         try:
             d=int(d)
+            if d == 7:
+                return ""
             return ext[d]
         except:
             ui.textBrowser.append("An error occured.")
