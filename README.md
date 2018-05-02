@@ -41,4 +41,4 @@ Voice is recognized through Google API and different mp3 files are played to ask
 * Change access
 
 ### Other
-abc
+* Keywords are searched for in spoken text rather than processing natural language.
