@@ -31,6 +31,10 @@ Voice is recognized through Google API and different mp3 files are played to ask
 * pip3 install SpeechRecognition
 * sudo apt-get install python3-pyqt5
 * pip3 install playsound
+* **pyaudio**:
+* sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
+* sudo apt-get install ffmpeg libav-tools
+* pip3 install pyaudio
 
 3. Run:
 * python3 /test1/interface.py
