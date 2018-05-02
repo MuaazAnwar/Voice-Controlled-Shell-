@@ -14,6 +14,27 @@ libraries:
 
 Voice is recognized through Google API and different mp3 files are played to ask user for further details of commands (if required). UI part of Voice Controlled Shell is designed with QT designer and converted to python using pyuic5.  
 
+## How to use
+
+### Ubuntu (tested working)
+
+0. Set up git
+* sudo apt install git
+* git config --global user.name "user_name"
+* git config --global user.email "email_id"
+
+1. Clone repository
+* git clone https://github.com/MuaazAnwar/Voice-Controlled-Shell-.git
+
+2. Install Packages:
+* sudo apt install python3-pip
+* pip3 install SpeechRecognition
+* sudo apt-get install python3-pyqt5
+* pip3 install playsound
+
+3. Run:
+* python3 /test1/interface.py
+
 ## Limitations
 
 ### Acceptable Commands
