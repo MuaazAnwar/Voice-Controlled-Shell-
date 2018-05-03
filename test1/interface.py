@@ -96,7 +96,8 @@ def fixString(str):
     a = a.replace("desktop", "~/Desktop")
     a = a.replace("my documents", "MyDocuments")
     a = a.replace("my document", "MyDocuments")
-
+    a = a.replace("flash", "/")
+    a = a.replace("splash", "/")
     return a
 def fixName(str):
 #    for i in range(0, len(str)):
@@ -107,6 +108,25 @@ def fixName(str):
 
 
     return temp
+
+def improve(str):
+    if 'txt' in str or 'zero' in str or '0' in str:
+        return 0
+    if 'mp3' in str or 'first' in str or '1' in str or 'one' in str:
+        return 1
+    if 'mp4' in str or 'second' in str or '2' in str or 'two' in str or 'to' in str:
+        return 2
+    if 'png' in str or 'third' in str or '3' in str or 'three' in str:
+        return 3
+    if 'wav' in str or 'fourth' in str or '4' in str or 'four' in str:
+        return 4
+    if 'sh' in str or 'fifth' in str or '5' in str or 'five' in str:
+        return 5
+    if 'docx' in str or 'sixth' in str or '6' in str or 'six' in str:
+        return 6
+
+    #if 'seven' in str or 'seventh' in str or '7' in str or 'no extension' in str:
+    return 7
 
 def show_ext():
 
@@ -132,11 +152,13 @@ def show_ext():
         playsound("selectect.mp3")
 
         d=getInput()
+        f=improve(d)
+        print (f)
         try:
-            d=int(d)
-            if d == 7:
+            #d=int(d)
+            if f == 7:
                 return ""
-            return ext[d]
+            return ext[f]
         except:
             ui.textBrowser.append("An error occured.")
             app.processEvents()
@@ -184,14 +206,14 @@ def wordSearch(str):
         source = getInput()
         source = fixString(source)
         source = source + show_ext()
-
+        source =fixName(source)
         print("Enter dest path")  # enterdest.mp3
         ui.textBrowser.append("Enter destiation path")
         app.processEvents()
         playsound("destpath.mp3")
         dest = getInput()
         dest = fixString(dest)
-
+        dest = fixName(dest)
         command = "cp " + source + " " + dest
 
     elif 'date' in str:
@@ -207,14 +229,14 @@ def wordSearch(str):
         source = getInput()
         source = fixString(source)
         source = source + show_ext()
-
+        source = fixName(source)
         print("Enter dest path")  # enterdest.mp3
         ui.textBrowser.append("Enter destination path")  # sourcepath.mp3
         app.processEvents()
         playsound("destpath.mp3")
         dest = getInput()
         dest = fixString(dest)
-
+        dest = fixName(dest)
         command = "mv " + source + " " + dest
     elif "change directory" in str:
         if "home" in str:
